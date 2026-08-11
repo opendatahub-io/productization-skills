@@ -67,7 +67,7 @@ jobs:
 
     - name: Update plugin.json version
       run: |
-        cd claudio-plugin/.claude-plugin
+        cd productization-plugin/.claude-plugin
         jq --arg v "$VERSION" '.version = $v' plugin.json > plugin.json.tmp
         mv plugin.json.tmp plugin.json
 
@@ -79,7 +79,7 @@ jobs:
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add claudio-plugin/.claude-plugin/plugin.json README.md
+        git add productization-plugin/.claude-plugin/plugin.json README.md
         git commit -m "chore(release): ${TAG}"
         git push origin HEAD
         echo "RELEASE_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV

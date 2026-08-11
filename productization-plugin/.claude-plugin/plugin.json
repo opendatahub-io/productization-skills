@@ -1,0 +1,8 @@
+{
+  "name": "productization-plugin",
+  "description": "Plugins for Productization agent",
+  "version": "0.7.0",
+  "author": {
+    "name": "Productization"
+  }
+}

@@ -1,13 +1,13 @@
 {
-"name": "claudio-skills",
+"name": "productization-skills",
 "owner": {
-"name": "Claudio"
+"name": "Productization"
 },
 "plugins": [
 {
-  "name": "claudio-plugin",
-  "source": "./claudio-plugin",
-  "description": "Plugin for Claudio"
+  "name": "productization-plugin",
+  "source": "./productization-plugin",
+  "description": "Plugin for Productization"
 }
 ]
 }

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The memory/state management tool provides a shared library for Claudio skills to persist analysis results across multiple steps, reducing model token usage and API round-trips for very large datasets.
+The memory/state management tool provides a shared library for Productization skills to persist analysis results across multiple steps, reducing model token usage and API round-trips for very large datasets.
 
 ## What is it?
 
@@ -554,7 +554,7 @@ The memory/state management tool provides a **lightweight, optional** system for
 - ✅ **Use for:** Very large datasets (>100KB), multi-step workflows
 - ❌ **Don't use for:** Typical analyses (<100KB), one-time queries
 - 📊 **Current approach:** JSON-first (direct output preferred)
-- 🔧 **Location:** `claudio-plugin/tools/memory/scripts/`
+- 🔧 **Location:** `productization-plugin/tools/memory/scripts/`
 - 🎯 **Purpose:** Reduce token usage for large datasets, enable multi-step workflows
 
 For most use cases, **direct JSON output is simpler and more efficient** than state management.

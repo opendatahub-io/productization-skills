@@ -1,6 +1,6 @@
 # Tools Installation Scripts Guide
 
-This document provides guidelines for creating and maintaining tool installation scripts in the `claudio-plugin/tools/` directory.
+This document provides guidelines for creating and maintaining tool installation scripts in the `productization-plugin/tools/` directory.
 
 ## Overview
 
@@ -16,7 +16,7 @@ The `tools/` directory contains installation scripts for CLI tools used by skill
 ## Directory Structure
 
 ```
-claudio-plugin/tools/
+productization-plugin/tools/
 ├── common.sh              # Shared library with common functions
 ├── TOOLS.md              # This guide
 ├── <tool-name>/
@@ -475,14 +475,14 @@ Let's walk through adding a hypothetical tool called `kubectl`:
 ### Step 1: Create Directory
 
 ```bash
-mkdir -p claudio-plugin/tools/kubectl
+mkdir -p productization-plugin/tools/kubectl
 ```
 
 ### Step 2: Create install.sh
 
 ```bash
-touch claudio-plugin/tools/kubectl/install.sh
-chmod +x claudio-plugin/tools/kubectl/install.sh
+touch productization-plugin/tools/kubectl/install.sh
+chmod +x productization-plugin/tools/kubectl/install.sh
 ```
 
 ### Step 3: Use the Template
@@ -671,4 +671,4 @@ When in doubt:
 
 ## Version
 
-This guide follows the conventions established in February 2025 for the Claudio Skills Plugin project.
+This guide follows the conventions established in February 2025 for the Productization Skills Plugin project.

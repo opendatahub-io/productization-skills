@@ -15,7 +15,7 @@ jobs:
       - name: Discover skills with tests
         id: find
         run: |
-          skills=$(find claudio-plugin/skills -type d -name tests \
+          skills=$(find productization-plugin/skills -type d -name tests \
             | sed 's|/tests$||' \
             | jq -R . | jq -sc .)
           echo "skills=$skills" >> "$GITHUB_OUTPUT"

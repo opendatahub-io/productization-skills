@@ -1,13 +1,13 @@
-# Claudio Skills Plugin
+# Productization Skills Plugin
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.7.0-green.svg)](claudio-plugin/.claude-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/version-0.7.0-green.svg)](productization-plugin/.claude-plugin/plugin.json)
 
 A Claude Code plugin that extends Claude with specialized skills for DevOps and cloud-native development workflows.
 
 ## Overview
 
-Claudio Skills Plugin provides production-ready skills designed to streamline interactions with GitLab CI/CD, Konflux, AWS CloudWatch Logs, Slack, GitLab branch management, and Jira. Each skill provides Claude Code with domain-specific capabilities, allowing you to leverage Claude as an intelligent assistant for complex DevOps tasks.
+Productization Skills Plugin provides production-ready skills designed to streamline interactions with GitLab CI/CD, Konflux, AWS CloudWatch Logs, Slack, GitLab branch management, and Jira. Each skill provides Claude Code with domain-specific capabilities, allowing you to leverage Claude as an intelligent assistant for complex DevOps tasks.
 
 ## Features
 
@@ -155,7 +155,7 @@ Provision and manage cloud VMs and services on AWS and Azure using [mapt](https:
 
 **Skill-Specific Dependencies:**
 
-Each skill manages its own dependencies through installer scripts in `claudio-plugin/tools/`:
+Each skill manages its own dependencies through installer scripts in `productization-plugin/tools/`:
 
 | Skill | Required Tools | Auto-Installed |
 |-------|---------------|----------------|
@@ -175,10 +175,10 @@ Each skill manages its own dependencies through installer scripts in `claudio-pl
 1. Clone this repository:
    ```bash
    git clone <repository-url>
-   cd claudio-plugin
+   cd productization-plugin
    ```
 
-2. The plugin will be automatically discovered by Claude Code from the `claudio-plugin` directory
+2. The plugin will be automatically discovered by Claude Code from the `productization-plugin` directory
 
 3. Verify installation by invoking a skill in Claude Code
 
@@ -199,7 +199,7 @@ Skills are invoked automatically by Claude Code when relevant to your request. Y
 "Search for messages about 'deployment' in #engineering"
 
 # Branch management
-"Create a branch release-1.5 on aipcc-claudio"
+"Create a branch release-1.5 on aipcc-productization"
 ```
 
 ### Example Workflows
@@ -247,7 +247,7 @@ Claude will:
 ## Architecture
 
 ```
-claudio-plugin/
+productization-plugin/
 ├── .claude-plugin/
 │   └── plugin.json              # Plugin metadata
 ├── tools/
@@ -291,7 +291,7 @@ claudio-plugin/
 
 ## Tool Management
 
-The `claudio-plugin/tools/` directory provides centralized installation scripts for CLI tools used by skills. This system ensures consistent, maintainable dependency management.
+The `productization-plugin/tools/` directory provides centralized installation scripts for CLI tools used by skills. This system ensures consistent, maintainable dependency management.
 **Design Principles:**
 - **Simplicity:** Scripts do one thing well - install the tool if not present
 - **Reusability:** Common functions shared via `common.sh` library
@@ -307,7 +307,7 @@ The `claudio-plugin/tools/` directory provides centralized installation scripts 
 
 **Adding New Tools:**
 
-See `claudio-plugin/tools/TOOLS.md` for comprehensive guidelines on adding new tool installers.
+See `productization-plugin/tools/TOOLS.md` for comprehensive guidelines on adding new tool installers.
 
 ## Performance Optimization
 
@@ -324,11 +324,11 @@ See [CLAUDE.md](CLAUDE.md) for detailed optimization guidelines and performance 
 
 ### Adding a New Skill
 
-1. Create a directory under `claudio-plugin/skills/<skill-name>/`
+1. Create a directory under `productization-plugin/skills/<skill-name>/`
 2. Add a `SKILL.md` file with skill documentation
 3. Add any required scripts under `scripts/`
-4. Update `claudio-plugin/.claude-plugin/plugin.json` if needed
-5. Add tool installers to `claudio-plugin/tools/` if dependencies are needed
+4. Update `productization-plugin/.claude-plugin/plugin.json` if needed
+5. Add tool installers to `productization-plugin/tools/` if dependencies are needed
 
 ### Testing
 
@@ -336,25 +336,25 @@ Each skill includes its own test scenarios. Run skill-specific scripts directly 
 
 ```bash
 # Test GitLab job analyzer
-./claudio-plugin/skills/gitlab-job-analyzer/scripts/analyze_recent_jobs.sh owner/repo --hours 24
+./productization-plugin/skills/gitlab-job-analyzer/scripts/analyze_recent_jobs.sh owner/repo --hours 24
 
 # Test AWS log analyzer
-./claudio-plugin/skills/aws-log-analyzer/scripts/analyze_errors.sh /aws/application/myapp 24
+./productization-plugin/skills/aws-log-analyzer/scripts/analyze_errors.sh /aws/application/myapp 24
 ```
 
 ## Documentation
 
 - **[CLAUDE.md](CLAUDE.md)** - Comprehensive plugin documentation for Claude Code
 - **[LICENSE](LICENSE)** - Apache License 2.0
-- **[tools/TOOLS.md](claudio-plugin/tools/TOOLS.md)** - Tool installation guide
+- **[tools/TOOLS.md](productization-plugin/tools/TOOLS.md)** - Tool installation guide
 
 **Skill-Specific Documentation:**
-- [GitLab Job Analyzer Skill](claudio-plugin/skills/gitlab-job-analyzer/SKILL.md)
-- [AWS Log Analyzer Skill](claudio-plugin/skills/aws-log-analyzer/SKILL.md)
-- [Slack Utilities Skill](claudio-plugin/skills/slack-utilities/SKILL.md)
-- [GitLab Branch Manager Skill](claudio-plugin/skills/gitlab-branch-manager/SKILL.md)
-- [Jira Utilities Skill](claudio-plugin/skills/jira-utilities/SKILL.md)
-- [Mapt Provisioner Skill](claudio-plugin/skills/mapt-provisioner/SKILL.md)
+- [GitLab Job Analyzer Skill](productization-plugin/skills/gitlab-job-analyzer/SKILL.md)
+- [AWS Log Analyzer Skill](productization-plugin/skills/aws-log-analyzer/SKILL.md)
+- [Slack Utilities Skill](productization-plugin/skills/slack-utilities/SKILL.md)
+- [GitLab Branch Manager Skill](productization-plugin/skills/gitlab-branch-manager/SKILL.md)
+- [Jira Utilities Skill](productization-plugin/skills/jira-utilities/SKILL.md)
+- [Mapt Provisioner Skill](productization-plugin/skills/mapt-provisioner/SKILL.md)
 
 ## Claude Code Permissions
 
@@ -364,16 +364,16 @@ When using this plugin you typically want to allow skill scripts to run without 
 {
   "permissions": {
     "allow": [
-      "Skill(claudio-plugin:aws-log-analyzer)",
-      "Skill(claudio-plugin:gitlab-job-analyzer)",
-      "Skill(claudio-plugin:slack-utilities)",
-      "Skill(claudio-plugin:jira-utilities)",
-      "Skill(claudio-plugin:jira-release-setup)",
-      "Skill(claudio-plugin:jira-sprint-manager)",
-      "Skill(claudio-plugin:jira-cve-tracker)",
-      "Skill(claudio-plugin:jira-gap-audit)",
-      "Skill(claudio-plugin:mapt-provisioner)",
-      "Bash(/path/to/claudio-skills/**)",
+      "Skill(productization-plugin:aws-log-analyzer)",
+      "Skill(productization-plugin:gitlab-job-analyzer)",
+      "Skill(productization-plugin:slack-utilities)",
+      "Skill(productization-plugin:jira-utilities)",
+      "Skill(productization-plugin:jira-release-setup)",
+      "Skill(productization-plugin:jira-sprint-manager)",
+      "Skill(productization-plugin:jira-cve-tracker)",
+      "Skill(productization-plugin:jira-gap-audit)",
+      "Skill(productization-plugin:mapt-provisioner)",
+      "Bash(/path/to/productization-skills/**)",
       "Bash(mempalace*)",
       "Read(/home/$USER/.claude/**)"
     ],
@@ -381,13 +381,13 @@ When using this plugin you typically want to allow skill scripts to run without 
     "ask": []
   },
   "enabledPlugins": {
-    "claudio-plugin@claudio-skills": true
+    "productization-plugin@productization-skills": true
   },
   "extraKnownMarketplaces": {
-    "claudio-skills": {
+    "productization-skills": {
       "source": {
         "source": "directory",
-        "path": "/path/to/claudio-skills"
+        "path": "/path/to/productization-skills"
       }
     }
   }
@@ -396,7 +396,7 @@ When using this plugin you typically want to allow skill scripts to run without 
 
 **Key design decisions:**
 
-- `Bash(/path/to/claudio-skills/**)` — skill scripts run without prompts; replace with your actual plugin path
+- `Bash(/path/to/productization-skills/**)` — skill scripts run without prompts; replace with your actual plugin path
 - `Bash(mempalace*)` — needed if you use MemPalace for session memory
 - **Do NOT add** `Bash(acli*)`, `Bash(curl*)`, or `Bash(python3*)` — keeping raw tools out of the allow list means a broken skill will surface as a prompt rather than silently calling tools directly
 - Add new `Skill(...)` entries incrementally as domain skills are deployed

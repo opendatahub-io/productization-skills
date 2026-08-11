@@ -22,7 +22,7 @@ source "$SCRIPT_DIR/../common.sh"
 # ============================================================================
 # DEPENDENCY VERSION
 # ============================================================================
-# Skopeo is primarily installed in the claudio container (ubi10) via microdnf;
+# Skopeo is primarily installed in the productization container (ubi10) via microdnf;
 # this script is a fallback for environments where skopeo is not pre-installed.
 # renovate: datasource=repology depName=centos_stream_10/skopeo versioning=loose
 SKOPEO_VERSION="1.22.2"

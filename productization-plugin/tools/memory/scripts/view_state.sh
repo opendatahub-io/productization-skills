@@ -1,7 +1,7 @@
 #!/bin/bash
 # Generic view stored state from previous script executions
 #
-# Location: claudio-plugin/tools/memory/scripts/view_state.sh
+# Location: productization-plugin/tools/memory/scripts/view_state.sh
 #
 # Usage:
 #   Before running this script, set SKILL_STATE_DIR:

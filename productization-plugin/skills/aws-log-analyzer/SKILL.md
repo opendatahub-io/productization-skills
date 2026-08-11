@@ -179,7 +179,7 @@ Top Errors by Frequency:
 
 The state management system (`~/.aws-log-analyzer/state/`) is available for very large datasets or multi-step workflows, but is **NOT recommended for typical error analysis**.
 
-**Shared Library:** This skill uses `claudio-plugin/tools/memory/scripts/state.sh` - a shared state management library used across multiple skills.
+**Shared Library:** This skill uses `productization-plugin/tools/memory/scripts/state.sh` - a shared state management library used across multiple skills.
 
 **Why direct JSON output is better:**
 - ✅ Simpler - no session IDs or file paths to manage

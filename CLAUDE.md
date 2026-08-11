@@ -1,8 +1,8 @@
-# Claudio Skills Plugin
+# Productization Skills Plugin
 
 ## Overview
 
-This repository contains **Claudio Skills Plugin** - a Claude Code plugin that extends Claude with specialized skills for DevOps and cloud-native development workflows. The plugin provides skills designed to streamline interactions with GitLab, Konflux, AWS CloudWatch Logs, Slack, and Jira.
+This repository contains **Productization Skills Plugin** - a Claude Code plugin that extends Claude with specialized skills for DevOps and cloud-native development workflows. The plugin provides skills designed to streamline interactions with GitLab, Konflux, AWS CloudWatch Logs, Slack, and Jira.
 
 ## What is this for?
 
@@ -20,7 +20,7 @@ These skills allow you to leverage Claude as an intelligent assistant for comple
 ## Plugin Structure
 
 ```
-claudio-plugin/
+productization-plugin/
 ├── .claude-plugin/
 │   └── plugin.json              # Plugin metadata
 ├── tools/
@@ -84,7 +84,7 @@ claudio-plugin/
 ```
 
 
-The `claudio-plugin/tools/` directory contains centralized installation scripts for CLI tools used by skills. This system provides a consistent, maintainable way to manage tool dependencies across all skills.
+The `productization-plugin/tools/` directory contains centralized installation scripts for CLI tools used by skills. This system provides a consistent, maintainable way to manage tool dependencies across all skills.
 
 ### Philosophy
 
@@ -98,7 +98,7 @@ The `claudio-plugin/tools/` directory contains centralized installation scripts 
 ### Directory Structure
 
 ```
-claudio-plugin/tools/
+productization-plugin/tools/
 ├── common.sh              # Shared library with common functions
 ├── TOOLS.md              # Comprehensive guide for adding new tools
 ├── <tool-name>/
@@ -161,9 +161,9 @@ source "$SCRIPT_DIR/../common.sh"
 
 **When a skill requires a new CLI tool, follow this process:**
 
-1. **Check if the tool already exists** in `claudio-plugin/tools/`
+1. **Check if the tool already exists** in `productization-plugin/tools/`
 
-2. **Read the comprehensive guide:** `claudio-plugin/tools/TOOLS.md`
+2. **Read the comprehensive guide:** `productization-plugin/tools/TOOLS.md`
    - Contains complete template
    - Installation patterns (binary, archive, package manager)
    - Common pitfalls and best practices
@@ -171,7 +171,7 @@ source "$SCRIPT_DIR/../common.sh"
 
 3. **Create the tool directory:**
    ```bash
-   mkdir -p claudio-plugin/tools/<tool-name>
+   mkdir -p productization-plugin/tools/<tool-name>
    ```
 
 4. **Use the template** from `TOOLS.md` and customize:
@@ -251,10 +251,10 @@ AWS_CLI_INSTALL_SCRIPT="$TOOLS_DIR/aws-cli/install.sh"
 **Direct usage:**
 ```bash
 # Check if AWS CLI is installed
-claudio-plugin/tools/aws-cli/install.sh --check
+productization-plugin/tools/aws-cli/install.sh --check
 
 # Install AWS CLI if needed
-claudio-plugin/tools/aws-cli/install.sh
+productization-plugin/tools/aws-cli/install.sh
 ```
 
 ### Version Management with Renovate
@@ -270,7 +270,7 @@ When a new version is released, Renovate automatically creates a PR to update th
 
 ### For Complete Documentation
 
-**See `claudio-plugin/tools/TOOLS.md` for:**
+**See `productization-plugin/tools/TOOLS.md` for:**
 - Complete script template with all sections
 - Detailed function documentation
 - 3 installation patterns (binary, archive, package manager)
@@ -408,7 +408,7 @@ Each skill has its own dependencies:
 
 ## Installation
 
-This plugin is configured in the marketplace at `.claude-plugin/marketplace.json` and can be loaded by Claude Code from the local `claudio-plugin` directory.
+This plugin is configured in the marketplace at `.claude-plugin/marketplace.json` and can be loaded by Claude Code from the local `productization-plugin` directory.
 
 ## Usage Philosophy
 
@@ -728,6 +728,6 @@ Apache License 2.0 - See LICENSE file for details.
 
 ## Author
 
-Claudio (v0.1.0)
+Productization Skills
 
 **Knowledge Graph:** A graphify graph exists at `graphify-out/`. Use `/graphify query "<question>"` for codebase questions — the graph is faster than reading files.

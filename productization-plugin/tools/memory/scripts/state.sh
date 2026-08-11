@@ -1,8 +1,8 @@
 #!/bin/bash
-# Generic state management library for Claudio skills
+# Generic state management library for Productization skills
 # This allows scripts to save outputs and reference them later without re-sending data to the model
 #
-# Location: claudio-plugin/tools/memory/scripts/state.sh
+# Location: productization-plugin/tools/memory/scripts/state.sh
 #
 # Usage:
 #   Before sourcing this library, set SKILL_STATE_DIR to your skill's state directory:

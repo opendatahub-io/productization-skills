@@ -19,7 +19,7 @@
       "customType": "regex",
       "description": "Update CLI tool versions in install scripts",
       "managerFilePatterns": [
-        "/^claudio-plugin/tools/.+/install\\.sh$/"
+        "/^productization-plugin/tools/.+/install\\.sh$/"
       ],
       "matchStrings": [
         "#\\s*renovate:\\s*datasource=(?<datasource>[^\\s]+)\\s+depName=(?<depName>[^\\s]+)(?:\\s+registryUrl=(?<registryUrl>[^\\s]+))?\\n[A-Z_]+_VERSION=\"(?<currentValue>[^\"]+)\""
@@ -31,7 +31,7 @@
       "customType": "regex",
       "description": "Update system package versions via repology",
       "managerFilePatterns": [
-        "/^claudio-plugin/tools/.+/install\\.sh$/"
+        "/^productization-plugin/tools/.+/install\\.sh$/"
       ],
       "matchStrings": [
         "#\\s*renovate:\\s*datasource=(?<datasource>[^\\s]+)\\s+depName=(?<depName>[^\\s]+)\\s+versioning=(?<versioning>[^\\s]+)\\n[A-Z_]+_VERSION=\"(?<currentValue>[^\"]+)\""

@@ -402,6 +402,6 @@ pytest -v
 
 **v1.0.0 (2025-02-12)**
 - Initial release
-- Extracted from aipcc-claudio downstream project
+- Extracted from aipcc-productization downstream project
 - Scripts: fetch_messages, fetch_thread_replies, post_message, convert_timestamp
 - Generic utilities for any Slack-based workflow
