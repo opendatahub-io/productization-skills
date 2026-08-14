@@ -21,8 +21,9 @@ jobs:
         GH_TOKEN: ${{ secrets.RELEASE_PAT }}
         ACTOR: ${{ github.actor }}
       run: |
-        gh api "orgs/aipcc-cicd/teams/aipcc-productization/memberships/${ACTOR}" --silent \
-          || (echo "::error::${ACTOR} is not a member of aipcc-cicd/aipcc-productization" && exit 1)
+        STATE=$(gh api "orgs/opendatahub-io/teams/productization-skills-maintainers/memberships/${ACTOR}" -q .state 2>/dev/null) \
+          && [ "$STATE" = "active" ] \
+          || (echo "::error::${ACTOR} is not an active member of opendatahub-io/productization-skills-maintainers" && exit 1)
 
   release:
     name: Create Release
