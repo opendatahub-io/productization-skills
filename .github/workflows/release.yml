@@ -11,26 +11,12 @@ on:
 permissions: {}
 
 jobs:
-  authorize:
-    name: Authorize
-    runs-on: ubuntu-24.04
-    environment: release
-    steps:
-    - name: Verify team membership
-      env:
-        GH_TOKEN: ${{ secrets.RELEASE_PAT }}
-        ACTOR: ${{ github.actor }}
-      run: |
-        STATE=$(gh api "orgs/opendatahub-io/teams/productization-skills-maintainers/memberships/${ACTOR}" -q .state 2>/dev/null) \
-          && [ "$STATE" = "active" ] \
-          || (echo "::error::${ACTOR} is not an active member of opendatahub-io/productization-skills-maintainers" && exit 1)
-
   release:
     name: Create Release
-    needs: authorize
     runs-on: ubuntu-24.04
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
     - name: Validate version format
@@ -47,15 +33,13 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         INPUT_VERSION: ${{ inputs.version }}
       run: |
-        if gh release view "${INPUT_VERSION}" &>/dev/null; then
+        if gh release view "${INPUT_VERSION}" --repo "${{ github.repository }}" &>/dev/null; then
           echo "::error::Release ${INPUT_VERSION} already exists"
           exit 1
         fi
 
     - name: Checkout code
       uses: actions/checkout@v6
-      with:
-        token: ${{ secrets.RELEASE_PAT }}
 
     - name: Compute version strings
       env:
@@ -76,21 +60,28 @@ jobs:
       run: |
         sed -i "s/version-[0-9]*\.[0-9]*\.[0-9]*/version-${VERSION}/" README.md
 
-    - name: Commit version bump
+    - name: Create version bump PR
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        BRANCH="chore/release-${TAG}"
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
+        git checkout -b "${BRANCH}"
         git add productization-plugin/.claude-plugin/plugin.json README.md
         git commit -m "chore(release): ${TAG}"
-        git push origin HEAD
-        echo "RELEASE_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+        git push origin "${BRANCH}"
+        gh pr create \
+          --title "chore(release): ${TAG}" \
+          --body "Automated version bump for ${TAG} release." \
+          --base "${{ github.event.repository.default_branch }}" \
+          --head "${BRANCH}"
 
     - name: Create release and tag
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        RELEASE_TAG: ${{ inputs.version }}
       run: |
-        gh release create "${RELEASE_TAG}" \
-          --target "${RELEASE_SHA}" \
-          --title "${RELEASE_TAG}" \
+        gh release create "${TAG}" \
+          --target "${{ github.sha }}" \
+          --title "${TAG}" \
           --generate-notes
