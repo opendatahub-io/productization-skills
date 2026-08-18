@@ -1,6 +1,6 @@
 ---
 name: gitlab-branch-manager
-description: Create and protect GitLab branches. Use when the user asks to create a branch, protect a branch, or set up branch protection rules on GitLab. Uses the glab GitLab CLI. The script takes three required positional args in order: repo, branch-name, ref (no --ref flag).
+description: "Create and protect GitLab branches. Use when the user asks to create a branch, protect a branch, or set up branch protection rules on GitLab. Uses the glab GitLab CLI. The script takes three required positional args in order: repo, branch-name, ref (no --ref flag)."
 allowed-tools: Bash(*/gitlab-branch-manager/scripts/*.sh:*),Bash(*/tools/*/install.sh:*)
 ---
 
