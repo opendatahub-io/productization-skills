@@ -25,28 +25,32 @@ source "$SCRIPT_DIR/../common.sh"
 # ============================================================================
 
 # renovate: datasource=github-releases depName=redhat-developer/mapt
-MAPT_VERSION="0.14.2"
+MAPT_VERSION="0.14.4"
 
 # renovate: datasource=github-releases depName=pulumi/pulumi
-PULUMI_VERSION="3.234.0"
+PULUMI_VERSION="3.258.0"
 
 # Pulumi provider plugin versions (match mapt's oci/Containerfile)
 # renovate: datasource=github-releases depName=pulumi/pulumi-aws
-PULUMI_AWS_VERSION="7.28.0"
+PULUMI_AWS_VERSION="7.42.0"
 # renovate: datasource=github-releases depName=pulumi/pulumi-awsx
-PULUMI_AWSX_VERSION="3.5.0"
+PULUMI_AWSX_VERSION="3.8.0"
 # renovate: datasource=github-releases depName=pulumi/pulumi-azure-native
-PULUMI_AZURE_NATIVE_VERSION="3.17.0"
+PULUMI_AZURE_NATIVE_VERSION="3.26.0"
 # renovate: datasource=github-releases depName=pulumi/pulumi-command
 PULUMI_COMMAND_VERSION="1.2.1"
 # renovate: datasource=github-releases depName=pulumi/pulumi-tls
-PULUMI_TLS_VERSION="5.3.1"
+PULUMI_TLS_VERSION="5.5.1"
 # renovate: datasource=github-releases depName=pulumi/pulumi-random
-PULUMI_RANDOM_VERSION="4.19.2"
+PULUMI_RANDOM_VERSION="4.21.1"
 # renovate: datasource=github-releases depName=pulumi/pulumi-aws-native
-PULUMI_AWS_NATIVE_VERSION="1.63.0"
+PULUMI_AWS_NATIVE_VERSION="1.75.0"
 # renovate: datasource=github-releases depName=pulumi/pulumi-gitlab
-PULUMI_GITLAB_VERSION="9.11.0"
+PULUMI_GITLAB_VERSION="10.1.1"
+# renovate: datasource=github-releases depName=mapt-oss/pulumi-ibmcloud
+PULUMI_IBMCLOUD_VERSION="0.0.12"
+IBMCLOUD_PLUGIN_URL="https://github.com/mapt-oss/pulumi-ibmcloud/releases/download/v${PULUMI_IBMCLOUD_VERSION}/pulumi-resource-ibmcloud-v${PULUMI_IBMCLOUD_VERSION}-linux-${TARGETARCH}.tar.gz"
+
 
 # ============================================================================
 # CONFIGURATION
@@ -173,6 +177,7 @@ check_pulumi_providers() {
         ["random"]="$PULUMI_RANDOM_VERSION"
         ["aws-native"]="$PULUMI_AWS_NATIVE_VERSION"
         ["gitlab"]="$PULUMI_GITLAB_VERSION"
+        ["ibmcloud"]="$PULUMI_IBMCLOUD_VERSION"
     )
 
     for provider in "${!providers[@]}"; do
@@ -318,6 +323,11 @@ install_pulumi() {
 install_pulumi_providers() {
     log "Installing pulumi provider plugins..."
 
+    curl -fSL ${IBMCLOUD_PLUGIN_URL} -o pulumi-resource-ibmcloud.tar.gz 
+    tar -xzvf pulumi-resource-ibmcloud.tar.gz 
+    pulumi plugin install resource ibmcloud "v${PULUMI_IBMCLOUD_VERSION}" --file pulumi-resource-ibmcloud 
+    rm pulumi-resource-ibmcloud  pulumi-resource-ibmcloud.tar.gz 
+
     pulumi plugin install --exact resource aws "$PULUMI_AWS_VERSION" \
         && pulumi plugin install --exact resource awsx "$PULUMI_AWSX_VERSION" \
         && pulumi plugin install --exact resource azure-native "$PULUMI_AZURE_NATIVE_VERSION" \
@@ -325,7 +335,7 @@ install_pulumi_providers() {
         && pulumi plugin install --exact resource tls "$PULUMI_TLS_VERSION" \
         && pulumi plugin install --exact resource random "$PULUMI_RANDOM_VERSION" \
         && pulumi plugin install --exact resource aws-native "$PULUMI_AWS_NATIVE_VERSION" \
-        && pulumi plugin install --exact resource gitlab "$PULUMI_GITLAB_VERSION"
+        && pulumi plugin install --exact resource gitlab "$PULUMI_GITLAB_VERSION" 
 
     if check_pulumi_providers; then
         log "✓ All pulumi providers installed successfully"
