@@ -1,7 +1,7 @@
 # Productization Skills Plugin
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.8.1-green.svg)](productization-plugin/.claude-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/version-0.8.2-green.svg)](productization-plugin/.claude-plugin/plugin.json)
 
 A Claude Code plugin that extends Claude with specialized skills for DevOps and cloud-native development workflows.
 
