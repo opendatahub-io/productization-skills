@@ -16,6 +16,7 @@ Productization Skills Plugin provides production-ready skills designed to stream
 - **Slack Utilities** - Search messages, post updates, and interact with Slack workspaces
 - **GitLab Branch Management** - Create and protect GitLab branches with configurable protection rules
 - **Jira Utilities** - Manage Jira issues with JQL search, create/update issues, link issues, and fetch sprint info
+- **GitHub App Setup** - Guide GitHub App creation, installation, and secure Vault credential storage
 - **Mapt Provisioner** - Provision and manage cloud infrastructure using mapt (RHEL AI on AWS/Azure, OpenShift SNC on AWS, spot instances, GPU workloads)
 
 ## Skills
@@ -145,6 +146,11 @@ Provision and manage cloud VMs and services on AWS and Azure using [mapt](https:
 - `JIRA_TOKEN` - API token (Cloud) or Personal Access Token (Data Center)
 - `JIRA_EMAIL` - User email (Cloud auth only)
 - `JIRA_AUTH_TYPE` - `cloud` or `datacenter` (default: `cloud`)
+
+### 7. GitHub App Setup Skill
+
+Guide the creation and installation of GitHub Apps and store their credentials
+in a user-selected Vault KV secret without exposing the private key.
 
 ## Installation
 ### Prerequisites
@@ -355,6 +361,7 @@ Each skill includes its own test scenarios. Run skill-specific scripts directly 
 - [GitLab Branch Manager Skill](productization-plugin/skills/gitlab-branch-manager/SKILL.md)
 - [Jira Utilities Skill](productization-plugin/skills/jira-utilities/SKILL.md)
 - [Mapt Provisioner Skill](productization-plugin/skills/mapt-provisioner/SKILL.md)
+- [GitHub App Setup Skill](productization-plugin/skills/setup-github-app/SKILL.md)
 
 ## Claude Code Permissions
 
@@ -435,6 +442,5 @@ Contributions are welcome! Please:
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
 ## Author
-
 
 
