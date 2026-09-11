@@ -36,9 +36,11 @@ productization-plugin/
 │   │   └── install.sh           # glab GitLab CLI installer
 │   ├── skopeo/
 │   │   └── install.sh           # skopeo installer
-│   └── python/
-│       ├── install.sh           # Python pip installer
-│       └── slack-requirements.txt            # requests
+│   ├── python/
+│   │   ├── install.sh           # Python pip installer
+│   │   └── slack-requirements.txt            # requests
+│   └── tkn/
+│       └── install.sh           # Tekton CLI installer
 └── skills/
     ├── gitlab-job-analyzer/
     │   ├── SKILL.md             # GitLab CI/CD job analysis skill
@@ -156,6 +158,10 @@ source "$SCRIPT_DIR/../common.sh"
 - Installs skopeo via system package manager (dnf/apt/apk)
 - Used by: image inspection in Konflux workflows
 - Supports: Linux (RHEL, Fedora, Ubuntu, Debian, Alpine)
+
+**tkn** (`tools/tkn/install.sh`)
+- Installs the Tekton CLI
+- Used for direct Tekton Pipeline and PipelineRun operations
 
 ### Adding New Tools
 

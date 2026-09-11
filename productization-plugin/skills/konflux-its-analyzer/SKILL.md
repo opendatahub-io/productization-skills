@@ -173,3 +173,6 @@ ${CLAUDE_SKILL_DIR}/scripts/get_failed_pipelineruns.sh ai-tenant 1w
 ## Dependencies
 
 **Required:** `kubectl-ka`, `jq` — installed via `tools/*/install.sh`
+
+**Optional:** `tkn` — install via `tools/tkn/install.sh` when direct Tekton CLI
+operations are needed for a Pipeline or PipelineRun.
