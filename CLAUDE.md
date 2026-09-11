@@ -14,6 +14,7 @@ This plugin enables Claude Code to:
 - **Create and protect GitLab branches** for release workflows and branch management
 - **Interact with Slack workspaces** for message search, posting, and conversation management
 - **Manage Jira issues** with JQL search, create/update/link issues, and sprint tracking
+- **Set up GitHub Apps** and store their credentials in a user-selected Vault KV secret
 
 These skills allow you to leverage Claude as an intelligent assistant for complex DevOps tasks, from querying merge requests to deploying production releases and troubleshooting application issues across multiple components.
 
@@ -81,6 +82,8 @@ productization-plugin/
                 ├── get_board.sh         # Discover boards for a project
                 ├── cve_tracker.sh       # CVE deduplication and release clustering
                 └── setup_auth.sh        # One-time acli authentication
+    └── setup-github-app/
+        └── SKILL.md             # GitHub App creation and Vault credential storage
 ```
 
 
