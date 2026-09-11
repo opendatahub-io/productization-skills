@@ -165,6 +165,7 @@ Each skill manages its own dependencies through installer scripts in `productiza
 | GitLab Branch Manager | `glab`, `jq` | `jq` only |
 | Jira Utilities | `python3` + requests | requests |
 | Mapt Provisioner | `mapt`, `pulumi` | Both (via `tools/mapt/install.sh`) |
+| Konflux ITS Analyzer | `kubectl-ka`, `jq` | `tkn` (optional, for direct Tekton operations) |
 
 **Authentication:**
 - GitLab: Authenticate with `glab auth login` before using (required for GitLab Job Analyzer and GitLab Branch Manager)
@@ -264,8 +265,10 @@ productization-plugin/
 │   ├── python/
 │   │   ├── install.sh           # Python pip installer
 │   │   └── slack-requirements.txt
-│   └── skopeo/
-│       └── install.sh           # skopeo installer
+│   ├── skopeo/
+│   │   └── install.sh           # skopeo installer
+│   └── tkn/
+│       └── install.sh           # Tekton CLI installer
 └── skills/
     ├── gitlab-job-analyzer/
     │   ├── SKILL.md             # GitLab CI/CD job analysis skill
@@ -303,6 +306,7 @@ The `productization-plugin/tools/` directory provides centralized installation s
 - `kubectl/install.sh` - kubectl Kubernetes CLI installer
 - `python/` - Python package installers (pip-based requirements.txt files)
 - `skopeo/install.sh` - skopeo container image inspector installer
+- `tkn/install.sh` - Tekton CLI installer
 - `mapt/install.sh` - mapt CLI + Pulumi + provider plugins installer
 
 **Adding New Tools:**
