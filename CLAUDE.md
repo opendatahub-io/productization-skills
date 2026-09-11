@@ -14,6 +14,7 @@ This plugin enables Claude Code to:
 - **Create and protect GitLab branches** for release workflows and branch management
 - **Interact with Slack workspaces** for message search, posting, and conversation management
 - **Manage Jira issues** with JQL search, create/update/link issues, and sprint tracking
+- **Set up GitHub Apps** and store their credentials in a user-selected Vault KV secret
 
 These skills allow you to leverage Claude as an intelligent assistant for complex DevOps tasks, from querying merge requests to deploying production releases and troubleshooting application issues across multiple components.
 
@@ -36,9 +37,11 @@ productization-plugin/
 │   │   └── install.sh           # glab GitLab CLI installer
 │   ├── skopeo/
 │   │   └── install.sh           # skopeo installer
-│   └── python/
-│       ├── install.sh           # Python pip installer
-│       └── slack-requirements.txt            # requests
+│   ├── python/
+│   │   ├── install.sh           # Python pip installer
+│   │   └── slack-requirements.txt            # requests
+│   └── vault/
+│       └── install.sh           # Vault CLI installer
 └── skills/
     ├── gitlab-job-analyzer/
     │   ├── SKILL.md             # GitLab CI/CD job analysis skill
@@ -68,7 +71,7 @@ productization-plugin/
     ├── gitlab-branch-manager/
     │   ├── SKILL.md             # GitLab branch creation and protection skill
     │       └── create_and_protect_branch.sh  # Branch creation + protection
-    └── jira-utilities/
+    ├── jira-utilities/
         ├── SKILL.md             # Jira utilities skill (acli-based)
             └── scripts/
                 ├── _common.sh           # Shared auth helpers
@@ -81,6 +84,10 @@ productization-plugin/
                 ├── get_board.sh         # Discover boards for a project
                 ├── cve_tracker.sh       # CVE deduplication and release clustering
                 └── setup_auth.sh        # One-time acli authentication
+    └── setup-github-app/
+        ├── SKILL.md             # GitHub App creation and Vault credential storage
+        └── scripts/
+            └── vault.sh         # Restricted Vault and PEM helper
 ```
 
 
@@ -156,6 +163,10 @@ source "$SCRIPT_DIR/../common.sh"
 - Installs skopeo via system package manager (dnf/apt/apk)
 - Used by: image inspection in Konflux workflows
 - Supports: Linux (RHEL, Fedora, Ubuntu, Debian, Alpine)
+
+**Vault** (`tools/vault/install.sh`)
+- Installs the HashiCorp Vault CLI
+- Used by: GitHub App Setup skill
 
 ### Adding New Tools
 
