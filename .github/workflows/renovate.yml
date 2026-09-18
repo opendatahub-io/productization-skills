@@ -17,3 +17,67 @@ jobs:
         run: >-
           npx --yes --package renovate@42.99.0 renovate-config-validator
           --strict --no-global renovate.json
+
+  tkn-dry-run:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    env:
+      # RENOVATE_TOKEN, when configured, should be a read-only GitHub App
+      # installation token. The workflow token is the least-privilege fallback.
+      GITHUB_COM_TOKEN: ${{ secrets.RENOVATE_TOKEN || github.token }}
+      LOG_LEVEL: debug
+    steps:
+      - uses: actions/checkout@v6
+      - name: Verify tkn custom managers
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          fixture="$RUNNER_TEMP/renovate-tkn-fixture"
+          mkdir -p "$fixture/productization-plugin/tools/tkn"
+          cp .github/renovate-fixtures/tkn/install.sh \
+            "$fixture/productization-plugin/tools/tkn/install.sh"
+
+          jq '{"$schema": .["$schema"], customManagers: [
+            .customManagers[]
+            | select(.description == "Update CLI tool versions in install scripts"
+              or .datasourceTemplate == "github-release-attachments")
+          ]}' renovate.json > "$fixture/renovate.json"
+
+          pushd "$fixture" >/dev/null
+          set +e
+          npx --yes renovate@42.99.0 \
+            --platform=local \
+            --dry-run=full \
+            --require-config=required \
+            --include-paths=productization-plugin/tools/tkn/install.sh \
+            --dependency-dashboard=false 2>&1 | tee "$RUNNER_TEMP/renovate-tkn.log"
+          status=${PIPESTATUS[0]}
+          set -e
+          popd >/dev/null
+          if ((status != 0)); then
+            exit "$status"
+          fi
+
+          log="$RUNNER_TEMP/renovate-tkn.log"
+          if grep -Eqi 'repology|failed to look up|github token is required' "$log"; then
+            echo "Renovate encountered an unrelated lookup or credential failure"
+            exit 1
+          fi
+          grep -q '"fileCount": 3' "$log"
+          grep -q '"depCount": 3' "$log"
+          grep -Eq '"newValue": "[0-9]+\.[0-9]+\.[0-9]+"' "$log"
+          grep -Eq '"newValue": "v[0-9]+\.[0-9]+\.[0-9]+"' "$log"
+
+          # The fixture is deliberately old; validate both newly resolved checksums
+          # without coupling this test to today's latest Tekton release.
+          new_digest_count=$(grep -Eo '"newDigest": "[a-f0-9]{64}"' "$log" | sort -u | wc -l)
+          if ((new_digest_count < 2)); then
+            echo "Expected distinct x86_64 and aarch64 replacement digests"
+            exit 1
+          fi
+          if grep -Eq '"newDigest": "(c32a60b97388eb14e1ed2155b10bd7202aaf2e0a67ca7594b08fb96c1b94454b|f11bc2f834a2ab845b24f40dc01faf4b41dfc3af142062bf38e44f3fb5358456)"' "$log"; then
+            echo "Renovate did not replace one of the fixture digests"
+            exit 1
+          fi
