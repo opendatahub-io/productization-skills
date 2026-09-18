@@ -1,0 +1,19 @@
+name: Renovate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - name: Validate configuration
+        run: >-
+          npx --yes --package renovate@42.99.0 renovate-config-validator
+          --strict --no-global renovate.json
