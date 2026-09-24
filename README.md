@@ -166,6 +166,7 @@ Each skill manages its own dependencies through installer scripts in `productiza
 | Jira Utilities | `python3` + requests | requests |
 | Mapt Provisioner | `mapt`, `pulumi` | Both (via `tools/mapt/install.sh`) |
 | Konflux ITS Analyzer | `kubectl-ka`, `jq` | `tkn` (optional, for direct Tekton operations) |
+| Claudio PMC workflows | `gh` | `tools/gh/install.sh` |
 
 **Authentication:**
 - GitLab: Authenticate with `glab auth login` before using (required for GitLab Job Analyzer and GitLab Branch Manager)
@@ -256,6 +257,8 @@ productization-plugin/
 │   ├── TOOLS.md                 # Tool installation guide
 │   ├── aws-cli/
 │   │   └── install.sh           # AWS CLI installer
+│   ├── gh/
+│   │   └── install.sh           # GitHub CLI installer
 │   ├── glab/
 │   │   └── install.sh           # glab GitLab CLI installer
 │   ├── jq/
@@ -302,6 +305,7 @@ The `productization-plugin/tools/` directory provides centralized installation s
 
 **Available Tools:**
 - `aws-cli/install.sh` - AWS CLI v2 installer
+- `gh/install.sh` - GitHub CLI installer
 - `glab/install.sh` - glab GitLab CLI installer
 - `kubectl/install.sh` - kubectl Kubernetes CLI installer
 - `python/` - Python package installers (pip-based requirements.txt files)

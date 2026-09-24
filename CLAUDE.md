@@ -28,6 +28,8 @@ productization-plugin/
 │   ├── TOOLS.md                 # Tool installation guide
 │   ├── aws-cli/
 │   │   └── install.sh           # AWS CLI installer
+│   ├── gh/
+│   │   └── install.sh           # GitHub CLI installer
 │   ├── jq/
 │   │   └── install.sh           # jq installer
 │   ├── kubectl/
@@ -137,6 +139,10 @@ source "$SCRIPT_DIR/../common.sh"
 **glab** (`tools/glab/install.sh`)
 - Installs glab GitLab CLI
 - Used by: gitlab, gitlab-job-analyzer skills
+- Supports: Linux x86_64, ARM64
+
+**gh** (`tools/gh/install.sh`)
+- Installs GitHub CLI for GitHub operations in Claudio pipelines
 - Supports: Linux x86_64, ARM64
 
 **jq** (`tools/jq/install.sh`)
