@@ -1,0 +1,35 @@
+name: Claudio PR build
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  claudio-build:
+    name: Build Claudio with this PR
+    runs-on: ubuntu-26.04
+    steps:
+      - name: Check out Claudio
+        uses: actions/checkout@v7
+        with:
+          repository: aipcc-cicd/claudio
+          ref: main
+          path: claudio
+          persist-credentials: false
+
+      - name: Build Claudio with this productization-skills PR
+        working-directory: claudio
+        env:
+          CS_REF: ${{ github.event.pull_request.number }}
+          IMAGE_TAG: pr-${{ github.event.pull_request.head.sha }}
+          BUILDKIT_PROGRESS: plain
+        run: >-
+          make oci-build
+          CONTAINER_MANAGER=podman
+          CS_REF_TYPE=pr
+          CS_REF="$CS_REF"
+          IMAGE_REPO=localhost/claudio-ci
+          IMAGE_TAG="$IMAGE_TAG"
