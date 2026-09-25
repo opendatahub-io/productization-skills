@@ -40,6 +40,34 @@
     },
     {
       "customType": "regex",
+      "description": "Update gh amd64 release asset and checksum",
+      "managerFilePatterns": [
+        "/^productization-plugin/tools/gh/install\\.sh$/"
+      ],
+      "matchStrings": [
+        "#\\s*renovate:\\s*datasource=github-release-attachments\\s+depName=(?<depName>[^\\s]+)\\nGH_AMD64_URL=\"https://github\\.com/cli/cli/releases/download/v(?<currentValue>[^/]+)/(?<assetName>[^\"]+)\"\\nGH_AMD64_SHA256=\"(?<currentDigest>[a-f0-9]{64})\""
+      ],
+      "datasourceTemplate": "github-release-attachments",
+      "currentValueTemplate": "v{{{currentValue}}}",
+      "autoReplaceStringTemplate": "# renovate: datasource=github-release-attachments depName={{depName}}\nGH_AMD64_URL=\"https://github.com/cli/cli/releases/download/{{{newValue}}}/gh_{{{replace \"v\" \"\" newValue}}}_linux_amd64.tar.gz\"\nGH_AMD64_SHA256=\"{{{newDigest}}}\"",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "description": "Update gh arm64 release asset and checksum",
+      "managerFilePatterns": [
+        "/^productization-plugin/tools/gh/install\\.sh$/"
+      ],
+      "matchStrings": [
+        "#\\s*renovate:\\s*datasource=github-release-attachments\\s+depName=(?<depName>[^\\s]+)\\nGH_ARM64_URL=\"https://github\\.com/cli/cli/releases/download/v(?<currentValue>[^/]+)/(?<assetName>[^\"]+)\"\\nGH_ARM64_SHA256=\"(?<currentDigest>[a-f0-9]{64})\""
+      ],
+      "datasourceTemplate": "github-release-attachments",
+      "currentValueTemplate": "v{{{currentValue}}}",
+      "autoReplaceStringTemplate": "# renovate: datasource=github-release-attachments depName={{depName}}\nGH_ARM64_URL=\"https://github.com/cli/cli/releases/download/{{{newValue}}}/gh_{{{replace \"v\" \"\" newValue}}}_linux_arm64.tar.gz\"\nGH_ARM64_SHA256=\"{{{newDigest}}}\"",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
       "description": "Update tkn x86_64 release asset and checksum",
       "managerFilePatterns": [
         "/^productization-plugin/tools/.+/install\\.sh$/"
